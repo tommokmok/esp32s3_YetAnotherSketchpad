@@ -136,31 +136,31 @@ static void lv_100ask_sketchpad_event(const lv_obj_class_t *class_p, lv_event_t 
 
         lv_point_t point;
 
-        // lv_indev_get_point(indev, &point);
+        lv_indev_get_point(indev, &point);
 
-        // point.x = point.x - sketchpad->pos.x;
-        // point.y = point.y - sketchpad->pos.y;
-        // LV_LOG_USER("point: %d, %d", point.x, point.y);
-        // /*Release or first use*/
-        // if ((last_x != -32768) && (last_y != -32768))
-        // {
-        //     lv_layer_t layer;
-        //     lv_canvas_init_layer(obj, &layer);
+        point.x = point.x - sketchpad->pos.x;
+        point.y = point.y - sketchpad->pos.y;
+        LV_LOG_USER("point: %d, %d", point.x, point.y);
+        /*Release or first use*/
+        if ((last_x != -32768) && (last_y != -32768))
+        {
+            lv_layer_t layer;
+            lv_canvas_init_layer(obj, &layer);
 
-        //     sketchpad->line_rect_dsc.p1.x = last_x;
-        //     sketchpad->line_rect_dsc.p1.y = last_y;
-        //     sketchpad->line_rect_dsc.p2.x = point.x;
-        //     sketchpad->line_rect_dsc.p2.y = point.y;
+            sketchpad->line_rect_dsc.p1.x = last_x;
+            sketchpad->line_rect_dsc.p1.y = last_y;
+            sketchpad->line_rect_dsc.p2.x = point.x;
+            sketchpad->line_rect_dsc.p2.y = point.y;
 
-        //     lv_draw_line(&layer, &sketchpad->line_rect_dsc);
-        //     LV_LOG_USER("Should draw a line");
-        //     lv_canvas_finish_layer(obj, &layer);
+            lv_draw_line(&layer, &sketchpad->line_rect_dsc);
+            LV_LOG_USER("Should draw a line");
+            lv_canvas_finish_layer(obj, &layer);
 
             lv_obj_send_event(obj, LV_EVENT_VALUE_CHANGED, NULL);
-        // }
+        }
 
-        // last_x = point.x;
-        // last_y = point.y;
+        last_x = point.x;
+        last_y = point.y;
 
         // lv_layer_t layer;
         // lv_canvas_init_layer(obj, &layer);

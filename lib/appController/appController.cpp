@@ -90,38 +90,38 @@ void app_controller_init(void)
     lv_canvas_set_draw_buf(_sketchpad, draw_buf);
     void* ptr3 = draw_buf->data;
 
-    Serial.printf("Init: draw buffer address = %08x\r\n", ptr3);
+    // Serial.printf("Init: draw buffer address = %08x\r\n", ptr3);
     lv_canvas_fill_bg(_sketchpad, lv_color_hex3(0xccc), LV_OPA_COVER);
     lv_obj_center(_sketchpad);
-    lv_obj_add_event_cb(_sketchpad, event_handler, LV_EVENT_VALUE_CHANGED, NULL);
+    // lv_obj_add_event_cb(_sketchpad, event_handler, LV_EVENT_VALUE_CHANGED, NULL);
     // lv_example_canvas_7();
 }
 
 // Loop that runs on main loop of the Ardunio
 void app_controller_run(void)
 {
-    if (_drawline_flag)
-    {
-        lv_layer_t layer;
-        lv_canvas_init_layer(_sketchpad, &layer);
-        void* ptr3 =((lv_100ask_sketchpad_t *)_sketchpad)->draw_buf->data;
+    // if (_drawline_flag)
+    // {
+    //     lv_layer_t layer;
+    //     lv_canvas_init_layer(_sketchpad, &layer);
+    //     void* ptr3 =((lv_100ask_sketchpad_t *)_sketchpad)->draw_buf->data;
 
-          Serial.printf("_drawline_flag: draw buffer address = %08x\r\n", ptr3);
+    //       Serial.printf("_drawline_flag: draw buffer address = %08x\r\n", ptr3);
 
-        lv_draw_line_dsc_t dsc;
-        lv_draw_line_dsc_init(&dsc);
-        dsc.color = lv_palette_main(LV_PALETTE_RED);
-        dsc.width = 4;
-        dsc.round_end = 1;
-        dsc.round_start = 1;
-        dsc.p1.x = 15;
-        dsc.p1.y = 15;
-        dsc.p2.x = 35;
-        dsc.p2.y = 10;
-        lv_draw_line(&layer, &dsc);
+    //     lv_draw_line_dsc_t dsc;
+    //     lv_draw_line_dsc_init(&dsc);
+    //     dsc.color = lv_palette_main(LV_PALETTE_RED);
+    //     dsc.width = 4;
+    //     dsc.round_end = 1;
+    //     dsc.round_start = 1;
+    //     dsc.p1.x = 15;
+    //     dsc.p1.y = 15;
+    //     dsc.p2.x = 35;
+    //     dsc.p2.y = 10;
+    //     lv_draw_line(&layer, &dsc);
 
-        lv_canvas_finish_layer(_sketchpad, &layer);
-        Serial.println("Drawn a line");
-        _drawline_flag = 0;
-    }
+    //     lv_canvas_finish_layer(_sketchpad, &layer);
+    //     Serial.println("Drawn a line");
+    //     _drawline_flag = 0;
+    // }
 }
