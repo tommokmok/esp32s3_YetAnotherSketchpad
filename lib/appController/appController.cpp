@@ -24,7 +24,6 @@
  *  STATIC PROTOTYPES
  **********************/
 
-
 static lv_obj_t *_sketchpad;
 static uint8_t _drawline_flag = 0;
 static void sketchpad_toolbar_event_cb(lv_event_t *e);
@@ -32,7 +31,6 @@ static void toolbar_set_event_cb(lv_event_t *e);
 /**********************
  * STATIC FUNCTIONS
  **********************/
-
 
 /**********************
  *  LIB API
@@ -55,13 +53,18 @@ void app_controller_init(void)
     lv_canvas_fill_bg(_sketchpad, lv_color_hex3(0xccc), LV_OPA_COVER);
     lv_obj_align(_sketchpad, LV_ALIGN_BOTTOM_MID, 0, 0);
 
-
     static lv_coord_t sketchpad_toolbar_cw = LV_100ASK_SKETCHPAD_TOOLBAR_OPT_DELETE;
     lv_obj_t *color = lv_label_create(lv_screen_active());
     lv_label_set_text(color, LV_SYMBOL_TRASH);
     lv_obj_add_flag(color, LV_OBJ_FLAG_CLICKABLE);
     lv_obj_align(color, LV_ALIGN_TOP_MID, -10, 0);
     lv_obj_add_event_cb(color, sketchpad_toolbar_event_cb, LV_EVENT_ALL, &sketchpad_toolbar_cw);
+    lv_area_t area;
+    lv_obj_get_click_area(color, &area);
+    Serial.printf("Tash Click area: x1=%d, y1=%d, x2=%d, y2=%d\r\n", area.x1, area.y1, area.x2, area.y2);
+    lv_obj_set_ext_click_area(color, 5);
+    lv_obj_get_click_area(color, &area);
+    Serial.printf("Extended Tash Click area: x1=%d, y1=%d, x2=%d, y2=%d\r\n", area.x1, area.y1, area.x2, area.y2);
 
     static lv_coord_t sketchpad_toolbar_width = LV_100ASK_SKETCHPAD_TOOLBAR_OPT_WIDTH;
     lv_obj_t *size = lv_label_create(lv_screen_active());
@@ -69,6 +72,11 @@ void app_controller_init(void)
     lv_obj_add_flag(size, LV_OBJ_FLAG_CLICKABLE);
     lv_obj_align(size, LV_ALIGN_TOP_MID, 50, 0);
     lv_obj_add_event_cb(size, sketchpad_toolbar_event_cb, LV_EVENT_ALL, &sketchpad_toolbar_width);
+    lv_obj_get_click_area(size, &area);
+    Serial.printf("size Click area: x1=%d, y1=%d, x2=%d, y2=%d\r\n", area.x1, area.y1, area.x2, area.y2);
+    lv_obj_set_ext_click_area(size, 5);
+    lv_obj_get_click_area(size, &area);
+    Serial.printf("Extended size Click area: x1=%d, y1=%d, x2=%d, y2=%d\r\n", area.x1, area.y1, area.x2, area.y2);
 }
 
 static void sketchpad_toolbar_event_cb(lv_event_t *e)
